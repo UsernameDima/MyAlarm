@@ -83,9 +83,9 @@ public class MainActivity extends Activity {
         Calendar calendar = Calendar.getInstance();
         Calendar cal = Calendar.getInstance();
 
-        calendar.set(Calendar.YEAR, 2015);
-        calendar.set(Calendar.MONTH, 8);
-        calendar.set(Calendar.DAY_OF_MONTH, 27);
+        calendar.set(Calendar.YEAR, cal.get(Calendar.YEAR));
+        calendar.set(Calendar.MONTH, cal.get(Calendar.MONTH) -1); // -1 array {0....29/30}
+        calendar.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH));
         calendar.set(Calendar.HOUR_OF_DAY, 12);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
