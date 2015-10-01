@@ -10,10 +10,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.cards.notification.R;
 
@@ -22,21 +25,45 @@ import java.util.Calendar;
 public class MainActivity extends Activity {
 
     Button button;
-
+    EditText etYear, etMon, etDay, etHour, etMin;
+    Integer year, mon, day, hour, min;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button = (Button)findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                restartNotify(getNotification("5 second delay"));
+        etYear = (EditText)findViewById(R.id.etYear);
+        etMon = (EditText)findViewById(R.id.etMon);
+        etDay = (EditText)findViewById(R.id.etDay);
+        etHour = (EditText)findViewById(R.id.etHour);
+        etMin = (EditText)findViewById(R.id.etMin);
+
+
+
+    }
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.button:
+                if(TextUtils.isEmpty(etYear.getText().toString())
+                        ||TextUtils.isEmpty(etYear.getText().toString())
+                        || TextUtils.isEmpty(etYear.getText().toString())
+                        || TextUtils.isEmpty(etYear.getText().toString())
+                        || TextUtils.isEmpty(etYear.getText().toString())
+                        || TextUtils.isEmpty(etYear.getText().toString())
+                        ){Toast.makeText(getApplicationContext(),"empty lines",Toast.LENGTH_SHORT).show(); return;}
+
+                year = Integer.valueOf(etYear.getText().toString());
+                mon = Integer.valueOf(etMon.getText().toString());
+                day = Integer.valueOf(etDay.getText().toString());
+
+                hour = Integer.valueOf(etHour.getText().toString());
+                min = Integer.valueOf(etMin.getText().toString());
+
+                restartNotify(getNotification("Edit time"));
                 Intent intent = new Intent(getApplicationContext(),NotificationPublisher.class);
-                        intent.putExtra("text_event", "DA");
-            }
-        });
+                intent.putExtra("text_event", "DA");
+                break;
+        }
     }
 
     @Override
@@ -83,11 +110,11 @@ public class MainActivity extends Activity {
         Calendar calendar = Calendar.getInstance();
         Calendar cal = Calendar.getInstance();
 
-        calendar.set(Calendar.YEAR, cal.get(Calendar.YEAR));
-        calendar.set(Calendar.MONTH, cal.get(Calendar.MONTH) -1); // -1 array {0....29/30}
-        calendar.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH));
-        calendar.set(Calendar.HOUR_OF_DAY, 12);
-        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, mon -1); // -1 array {0....29/30}
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, min);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
